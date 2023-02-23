@@ -1,4 +1,3 @@
-
 const refBody = document.querySelector('body')
 let refStartBTN = document.querySelector('button[data-start]');
 let refStopBTN = document.querySelector('button[data-stop]');
