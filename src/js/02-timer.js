@@ -21,6 +21,7 @@ const fr = flatpickr(refInput, {
 
 
 
+// сет интервал запускается по клику кнопки старт и считает разницу между датами
 
 setInterval(() => { 
 // const currentDate = new Date()    
@@ -36,6 +37,8 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+
+    // здесь перевірка минуле майбутне і дизейбл кнопки
       console.log(selectedDates[0].map
       );
 
