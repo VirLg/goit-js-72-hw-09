@@ -1,34 +1,27 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-
+document.querySelector('[data-start]').disabled = true
 const refInput = document.querySelector('#datetime-picker')
 const refButton = document.querySelector('[data-start]')
 const refSpan = document.querySelectorAll('.value')
 
- document.querySelector('[data-start]').disabled = true
-let onTimerValue = 0;
-let timeObj = {};
 
-const currentDate = new Date() ;
-const userDate = 0;
-
+let onTimerValue = [];
 
 const config = {
   enableTime: true,
   time_24hr: true,
-  defaultDate: new Date(),
+  defaultDate: Date.now(),
   minuteIncrement: 1,
+  
   onClose(selectedDates) {
-    if (onTimerValue<0) { 
-      return
-    }
-    document.querySelector('[data-start]').disabled = false
-   onTimerValue = selectedDates[0] - currentDate  
-   timeObj = convertMs(onTimerValue);
+onTimerValue = selectedDates[0]
 
+    return handleClickBTN(onTimerValue)  
   },
 };
+
 
 flatpickr("#datetime-picker", config);
 
@@ -49,47 +42,37 @@ function convertMs(ms) {
   const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
-  return { days, hours, minutes, seconds };
-}
-
+timeObj = { days, hours, minutes, seconds }
 
 const timer = [...refSpan]
-function handleClickBTN() { 
   const arrTimer = Object.values(timeObj)
-  timer.map((el,idx)=>el.textContent = arrTimer[idx])
-
+  timer.map((el, idx) => el.textContent = arrTimer[idx])
 }
 
+function handleClickBTN(onTimerValue) { 
+  if ((onTimerValue-Date.now())>0) {
+    document.querySelector('[data-start]').disabled = false
+setInterval(()=> { 
+ms = onTimerValue-Date.now()
+    console.log(ms);
+convertMs(ms)
+},1000)
 
+  } else { 
+
+    document.querySelector('[data-start]').disabled = true
+    alert("Please choose a date in the future")
+  } 
+}
 
 
 refButton.addEventListener('click', handleClickBTN)
 
 
 
-setInterval(()=> { })
 
 
 
-
-
-
-
-
-// console.log(options._initialDate-currentDate);
-
-
-
-// сет интервал запускается по клику кнопки старт и считает разницу между датами
-
-setInterval(() => { 
-// const currentDate = new Date()    
-
-    // console.log(options._initialDate-currentDate);
-    
-    
-},1000)
 
 
 
