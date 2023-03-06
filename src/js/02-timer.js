@@ -5,7 +5,7 @@ document.querySelector('[data-start]').disabled = true
 const refInput = document.querySelector('#datetime-picker')
 const refButton = document.querySelector('[data-start]')
 const refSpan = document.querySelectorAll('.value')
-
+const ms = 0;
 
 let onTimerValue = [];
 
@@ -52,10 +52,12 @@ const timer = [...refSpan]
 function handleClickBTN(onTimerValue) { 
   if ((onTimerValue-Date.now())>0) {
     document.querySelector('[data-start]').disabled = false
-setInterval(()=> { 
-ms = onTimerValue-Date.now()
-    console.log(ms);
-convertMs(ms)
+    setInterval(() => { 
+
+      (onTimerValue - Date.now() >= 0) ? convertMs(onTimerValue - Date.now()) : clearInterval();
+ 
+    
+
 },1000)
 
   } else { 
