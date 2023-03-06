@@ -8,6 +8,7 @@ const refSpan = document.querySelectorAll('.value')
 const ms = 0;
 
 let onTimerValue = [];
+let timeObj = {};
 
 const config = {
   enableTime: true,
