@@ -19,12 +19,17 @@ const config = {
   onClose(selectedDates) {
 onTimerValue = selectedDates[0]
 
-    return handleClickBTN(onTimerValue)  
+if ((onTimerValue-Date.now())<0) {
+  document.querySelector('[data-start]').disabled = true
+  alert("Please choose a date in the future")
+}else{
+  document.querySelector('[data-start]').disabled = false
+}  
   },
 };
 
 
-flatpickr("#datetime-picker", config);
+const flatpickrInit = flatpickr("#datetime-picker", config);
 
 
   
@@ -50,31 +55,31 @@ const timer = [...refSpan]
   timer.map((el, idx) => el.textContent = arrTimer[idx])
 }
 
-function handleClickBTN(onTimerValue) { 
-  if ((onTimerValue-Date.now())>0) {
-    document.querySelector('[data-start]').disabled = false
-    setInterval(() => { 
 
-      (onTimerValue - Date.now() >= 0) ? convertMs(onTimerValue - Date.now()) : clearInterval();
+
+
+function handleClickBTN() { 
+  document.querySelector('[data-start]').disabled = true
+
+console.log();
+
+   const iteration =  setInterval(() => { 
+
+      console.log(flatpickrInit.selectedDates[0]-Date.now());
+    
+
+      (flatpickrInit.selectedDates[0]-Date.now() >= 0) ? convertMs(flatpickrInit.selectedDates[0]-Date.now()) : clearInterval(iteration);
  
     
 
 },1000)
 
-  } else { 
 
-    document.querySelector('[data-start]').disabled = true
-    alert("Please choose a date in the future")
-  } 
+  
 }
 
 
 refButton.addEventListener('click', handleClickBTN)
-
-
-
-
-
 
 
 

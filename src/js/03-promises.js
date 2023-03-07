@@ -19,14 +19,19 @@ return formDataCurrent
 }
 
 let variableValue = 0;
+
   function foo() { 
     const { amount, delay, step  } = formDataCurrent;
 
     for (let position = 1; position <= amount; position += 1){
-      variableValue += (delay + step);
+      if(position>1){
+              variableValue +=  step;
 createPromise(position, variableValue)
+      }else{
+        variableValue = delay
+        createPromise(position, variableValue)
+      }
     } 
-    
   }
   
 
