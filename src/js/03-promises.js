@@ -41,9 +41,12 @@ function createPromise(position,delay) {
   const promise =  new Promise((resolve, reject) => {
   setTimeout(() => {
     if (shouldResolve) {
-      resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`));
+      resolve(Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`))
+      // resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`));
     } else {
-      reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`));
+
+      reject(Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`))
+      // reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`));
     }
   }, delay);
 });
