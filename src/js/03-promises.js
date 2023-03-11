@@ -8,10 +8,16 @@ let formDataCurrent = {}
 
 function onFormSubmit(evt) {
   evt.preventDefault()
-const formData = new FormData(refForm)
-formData.forEach((value,name) =>{
-  formData[name] = Number(value);
- formDataCurrent = {...formData}   
+  const formData = new FormData(refForm)
+
+  formData.forEach((value, name) => {
+    if (Number(value) < 0) {
+      Notify.warning(`Value should hit more than 0`)
+   return
+    } else { formData[name] = Number(value);
+ formDataCurrent = {...formData}  }
+  
+   
 })
 
  foo(formDataCurrent)
