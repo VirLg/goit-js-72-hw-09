@@ -7,11 +7,8 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 console.log(Notify);
 
 document.querySelector('[data-start]').disabled = true
-const refInput = document.querySelector('#datetime-picker')
 const refButton = document.querySelector('[data-start]')
 const refSpan = document.querySelectorAll('.value')
-const ms = 0;
-
 let onTimerValue = [];
 let timeObj = {};
 
@@ -33,12 +30,8 @@ if ((onTimerValue-Date.now())<0) {
 }  
   },
 };
-
-
 const flatpickrInit = flatpickr("#datetime-picker", config);
 
-
-  
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -54,34 +47,24 @@ function convertMs(ms) {
   const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-timeObj = { days, hours, minutes, seconds }
-
-const timer = [...refSpan]
+ timeObj = { days, hours, minutes, seconds }
+  padStart(timeObj) 
+    
+}
+function padStart(timeObj) {
+  for (const key in timeObj) {
+    (timeObj[key] = timeObj[key].toString().padStart(2, 0)); 
+  }
+ const timer = [...refSpan]
   const arrTimer = Object.values(timeObj)
   timer.map((el, idx) => el.textContent = arrTimer[idx])
-}
-
-
-
-
+  
+  }
 function handleClickBTN() { 
   document.querySelector('[data-start]').disabled = true
-
-console.log();
-
    const iteration =  setInterval(() => { 
-
-      console.log(flatpickrInit.selectedDates[0]-Date.now());
-    
-
       (flatpickrInit.selectedDates[0]-Date.now() >= 0) ? convertMs(flatpickrInit.selectedDates[0]-Date.now()) : clearInterval(iteration);
- 
-    
-
 },1000)
-
-
-  
 }
 
 
