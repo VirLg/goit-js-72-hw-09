@@ -11,16 +11,9 @@ function onFormSubmit(evt) {
   const formData = new FormData(refForm)
 
   formData.forEach((value, name) => {
-    if (Number(value) < 0) {
-      let count = 0;
-      count += 1;
-      if (count < 3)
-        Notify.warning(`Value should hit more than 0`)
-      return
-    } else { 
-        formData[name] = Number(value);
+  formData[name] = Number(value);
  formDataCurrent = {...formData}
-    }  
+   
 })
 
  foo(formDataCurrent)
@@ -29,9 +22,11 @@ return formDataCurrent
 
 let variableValue = 0;
 
-  function foo() { 
-    const { amount, delay, step  } = formDataCurrent;
-
+  function foo({ amount, delay, step  }) {     
+    if (amount < 0 || delay < 0 || step < 0) {    
+      Notify.warning(`Value should hit more than 0`)
+      return
+    } else { 
     for (let position = 1; position <= amount; position += 1){
       if(position>1){
               variableValue +=  step;
@@ -40,7 +35,8 @@ createPromise(position, variableValue)
         variableValue = delay
         createPromise(position, variableValue)
       }
-    } 
+      } 
+      }
   }
   
 
