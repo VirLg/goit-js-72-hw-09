@@ -23,7 +23,7 @@ return formDataCurrent
 let variableValue = 0;
 
   function foo({ amount, delay, step  }) {     
-    if (amount < 0 || delay < 0 || step < 0) {    
+    if (amount <= 0 || delay < 0 || step < 0) {    
       Notify.warning(`Value should hit more than 0`)
       return
     } else { 
