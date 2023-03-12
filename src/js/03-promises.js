@@ -12,12 +12,15 @@ function onFormSubmit(evt) {
 
   formData.forEach((value, name) => {
     if (Number(value) < 0) {
-      Notify.warning(`Value should hit more than 0`)
-   return
-    } else { formData[name] = Number(value);
- formDataCurrent = {...formData}  }
-  
-   
+      let count = 0;
+      count += 1;
+      if (count < 3)
+        Notify.warning(`Value should hit more than 0`)
+      return
+    } else { 
+        formData[name] = Number(value);
+ formDataCurrent = {...formData}
+    }  
 })
 
  foo(formDataCurrent)
